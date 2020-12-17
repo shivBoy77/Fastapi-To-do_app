@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no" />
+    <meta name="description"
+        content="Semantic-UI-Forest, collection of design, themes and templates for Semantic-UI." />
+    <meta name="keywords" content="Semantic-UI, Theme, Design, Template" />
+    <meta name="author" content="PPType" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        type="text/css" />
+    
+    </script>
+    <style type="text/css">
+        body {
+            min-height: 200px;
+            padding-top: 54px;
+        }
+
+        .column {
+            text-align: center;
+        }
+
+        .tox-notifications-container {
+            display: none !important;
+        }
+
+        .ui.borderless.menu {
+            background-color: #f8f8f8;
+            /* background-color: rgba(255, 255, 255, 0.904); */
+            box-shadow: 1px;
+            flex-wrap: wrap;
+            border: none;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .ui.container>.ui.message {
+            background-color: rga(238, 238, 238);
+            box-shadow: none;
+            padding: 5rem 4rem;
+            margin-top: 1rem;
+        }
+
+        .ui.message h1.ui.header {
+            font-size: 1.5rem;
+        }
+
+        .ui.message p.lead {
+            font-size: 1.1rem;
+            color: #333333;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body id="root">
+    <div class="ui tablet padded grid">
+        <div class="ui top fixed borderless fluid huge menu">
+            <div class="ui container">
+                <a class="header item">
+                    <h3>Todo App</h3>
+                </a>
+                <a class="item" href="/">Home</a>
+                <!-- <a class="item">Contact</a> -->
+                <div class="right menu">
+                    <!-- <button id="add_jobs" class="ui button">Add</button> -->
+                    <a href="/add_job" class="item">Add</a>
+                    <!-- <a class="item" href="#">Add</a> -->
+                    <!-- <a class="item">Sign in </a>-->
+                    <!-- <a class="item">Log in</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Add New Job
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <div class="field">
+                    <label>Job Title</label>
+                    <textarea id="symbols_h" rows="1" placeholder="Accountant"></textarea>
+                </div>
+                <div class="field">
+                    <label>Job Description</label>
+                    <textarea id="symbols" placeholder="Job Detail"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div id="save_" class="ui positive right labeled icon button">
+                Add Job
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div> -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="container">
+        {% block contentA %}
+        {% endblock %}
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#save_me").click(function () {
+            var symbols_h = $("#symbols_h").val();
+            // var desc = tinyMCE.get('full-featured-non-premium').getContent();
+            // var desc = tinyMCE.activeEditor.getContent({ format: 'raw' });
+            var desc = tinyMCE.activeEditor.getContent();
+            console.log(symbols_h);
+            console.log(desc);
+            $.ajax({
+                url: '/add_job',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ "title": symbols_h, "description": desc }),
+                dataType: 'json'
+            });
+
+        });
+
+    });
+
+    // tinymce 
+
+    tinymce.init({
+        selector: 'textarea#full-featured-non-premium',
+        plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+        imagetools_cors_hosts: ['picsum.photos'],
+        menubar: 'file edit view insert format tools table help',
+        toolbar: 'undo redo | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview | insertfile image media link anchor codesample',
+        toolbar_sticky: true,
+        autosave_ask_before_unload: true,
+        autosave_interval: '30s',
+        autosave_prefix: '{path}{query}-{id}-',
+        autosave_restore_when_empty: false,
+        autosave_retention: '2m',
+        image_advtab: true,
+        link_list: [
+            { title: 'My page 1', value: 'https://www.tiny.cloud' },
+            { title: 'My page 2', value: 'http://www.moxiecode.com' }
+        ],
+        image_list: [
+            { title: 'My page 1', value: 'https://www.tiny.cloud' },
+            { title: 'My page 2', value: 'http://www.moxiecode.com' }
+        ],
+        image_class_list: [
+            { title: 'None', value: '' },
+            { title: 'Some class', value: 'class-name' }
+        ],
+        importcss_append: true,
+        file_picker_callback: function (callback, value, meta) {
+            /* Provide file and text for the link dialog */
+            if (meta.filetype === 'file') {
+                callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+            }
+
+            /* Provide image and alt text for the image dialog */
+            if (meta.filetype === 'image') {
+                callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+            }
+
+            /* Provide alternative source and posted for the media dialog */
+            if (meta.filetype === 'media') {
+                callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+            }
+        },
+        templates: [
+            { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+            { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+            { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+        ],
+        template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+        template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+        height: 300,
+        image_caption: true,
+        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+        noneditable_noneditable_class: 'mceNonEditable',
+        toolbar_mode: 'sliding',
+        contextmenu: 'link image imagetools table',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+    });
+</script>
+
+</html>

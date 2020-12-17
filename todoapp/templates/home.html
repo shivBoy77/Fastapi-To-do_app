@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for job in jobs %}
+<div class="ui container">
+    <div class="ui message">
+        <h1 class="ui huge header">{{ job.title }}</h1>
+        <div id="myhtml" class="lead">
+            <p>{{ job.description | safe }}</p>
+        </div>
+        <a class="ui primary button">Apply Now &raquo; </a>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

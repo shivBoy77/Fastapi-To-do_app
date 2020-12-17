@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+        type="text/css" />
+    </script>
+    <!-- /styling -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+    <style>
+        body {
+            min-height: 2000px;
+            padding-top: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="column">
+        <div class="ui segment">
+            <h2>Add New job</h2>
+            <div style="text-align: left; padding: 20px;">
+                <h3 class="ui header sixteen wide column">Job Title</h3>
+                <div class="ui fluid icon input">
+                    <input type="text" placeholder="Enter job tilte">
+                </div>
+                <h3>Job Description</h3>
+                <form method="post">
+                    <textarea id="mytextarea">Hello, World!</textarea>
+                </form>
+            </div>
+            <button type="submit" class="positive ui button">Upload</button>
+        </div>
+    </div>
+</body>
+
+</html>
